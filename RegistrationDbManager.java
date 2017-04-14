@@ -21,7 +21,7 @@ public class RegistrationDbManager{
 			switch (args[0]) {
 				case "A": addStudent(args[1], args[2], args[3], args[4]);
 						  break;
-				case "B": addCourse((args[1], args[2], args[3], args[4]);
+				case "B": addCourse(args[1], args[2], args[3], args[4]);
 						  break;
 				case "C": addApplication(args[1], args[2], args[3]);
 						  break;
@@ -50,6 +50,15 @@ public class RegistrationDbManager{
 
 	public static void addApplication(String studentId, String courseNum, String deptNum) {
 		insert("Enrollment", studentId + ", " + courseNum + ", " + deptNum);
+	}
+
+	public static void viewStudents() {
+	}
+
+	public static void viewDeptCourses() {
+	}
+
+	public static void viewStudentCourses() {
 	}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
