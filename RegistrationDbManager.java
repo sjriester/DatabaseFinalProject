@@ -41,15 +41,15 @@ public class RegistrationDbManager{
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	public static void addStudent(String studentId, String fName, String lName, String major) {
-		insert("Student", studentId + ", " + fName + ", " + lName + ", " + major);
+		insert("Student", "\"" + studentId + "\", \"" + fName + "\", \"" + lName + "\", \"" + major + "\"");
 	}
 
 	public static void addCourse(String deptCode, String courseNum, String title, String creditHours) {
-		insert("Course", deptCode + ", " + courseNum + ", " + title + ", " + creditHours);
+		insert("Course", "\"" + deptCode + "\", \"" + courseNum + "\", \"" + title + "\", " + creditHours);
 	}
 
-	public static void addApplication(String studentId, String courseNum, String deptNum) {
-		insert("Enrollment", studentId + ", " + courseNum + ", " + deptNum);
+	public static void addApplication(String studentId, String courseNum, String deptCode) {
+		insert("Enrollment", "\"" + studentId + "\", \"" + courseNum + "\", \"" + deptCode + "\"");
 	}
 
 	public static void viewStudents() {
@@ -151,7 +151,8 @@ public class RegistrationDbManager{
 
     // Insert into any table, any values from data passed in as String parameters
     public static void insert(String table, String values) {
-        String query = "INSERT into " + table + " values (" + values + ")" ;
+        String query = "INSERT INTO " + table + " VALUES (" + values + ");" ;
+		System.out.println(query);
         try {
             statement.executeUpdate(query);
         } catch (SQLException e) {
