@@ -53,6 +53,8 @@ public class RegistrationDbManager{
 	}
 
 	public static void viewStudents() {
+		String query = "SELECT * FROM Student";
+		query(query);
 	}
 
 	public static void viewDeptCourses() {
@@ -152,7 +154,6 @@ public class RegistrationDbManager{
     // Insert into any table, any values from data passed in as String parameters
     public static void insert(String table, String values) {
         String query = "INSERT INTO " + table + " VALUES (" + values + ");" ;
-		System.out.println(query);
         try {
             statement.executeUpdate(query);
         } catch (SQLException e) {
