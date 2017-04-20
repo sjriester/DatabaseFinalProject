@@ -109,7 +109,6 @@ public class RegistrationDbManager{
 	public static void query(String q) {
         try {
             ResultSet resultSet = statement.executeQuery(q);
-            System.out.print("\n--------------------------------- <br>");
             print(resultSet);
         }
         catch (SQLException e) {
@@ -132,7 +131,8 @@ public class RegistrationDbManager{
         for (int i = 1; i <= numColumns; i++) {
             if (i > 1)
                 System.out.print(",  ");
-            System.out.print(metaData.getColumnName(i));
+			String formattedString = (metaData.getColumnName(i) + "                              ").substring(0,30); 
+            System.out.print(formattedString);
         }
         System.out.print("<br>");
     }
@@ -145,7 +145,8 @@ public class RegistrationDbManager{
                 if (i > 1)
                     System.out.print(",  ");
                 columnValue = resultSet.getString(i);
-                System.out.print(columnValue);
+				String formattedString = (columnValue + "                              ").substring(0,30); 
+                System.out.print(formattedString);
             }
             System.out.print("<br>");
         }
