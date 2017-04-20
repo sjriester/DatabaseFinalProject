@@ -209,19 +209,14 @@
 
 	<!-- Container-->
 	<div id="database" class="container text-center">
-	 <p style ='background-color: #2ba6cb;'></br></br></br></br>
-	 
-	 
 	 <?php
 		if (isset($_POST['firstname']))
 		{
-   			$command = "java -cp .:mysql-connector-java-5.1.40-bin.jar RegistrationDbManager A 888888888 Dawg Rohnson Spit";
-			echo "command: $command <br>";
-    			system($command);
-			//echo "Student Added: " . $_POST['firstname'] . " " . $_POST['lastname'];
+   			$command = 'java -cp .:mysql-connector-java-5.1.40-bin.jar RegistrationDbManager A ' . $_POST['studentId'] . ' ' . $_POST['firstname'] . ' ' . $_POST['lastname'] . ' ' . $_POST['major'];
+   			//echo $command;
+   			system($command);
 		}
-	?></p>
-	
+	?>
 	
 	 <br>
 	  <div class="row top">
@@ -242,7 +237,7 @@
 	  <div class="row bottom">
 	   
 	    <div class="col-sm-4">
-	      <div class="btn btn-large">View Students</div>
+	      <div class="btn btn-large" data-toggle="modal" data-target="#ViewStudents">View Students</div>
 	    </div>
 	    
 	    <div class="col-sm-4">
@@ -266,18 +261,42 @@
 		</div>
 		<div class="modal-body">
 		  <form method="post" action="enrollment.php">
-	  	  	First name:<br>
+		  	Student ID<br>
+	  	  	<input type="text" name="studentId" value="000111000">
+		  	<br><br>
+	  	  	First name<br>
 	  	  	<input type="text" name="firstname" value="Pearson">
-		  	<br>
-	  	  	Last name:<br>
+		  	<br><br>
+	  	  	Last name<br>
 	  	  	<input type="text" name="lastname" value="Wade">
 	  		<br><br>
+	  		Major<br>
+	  	  	<input type="text" name="major" value="CE">
+		  	<br><br><br>
 	  		<input type="submit" value="Submit">
 		  </form> 
 		</div>
-		<div class="modal-footer">
-		  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		
+	      </div>
+	      
+	    </div>
+	  </div> <!-- End Modal-->
+	  
+	  
+	  <!-- Modal -->
+	  <div class="modal fade" id="ViewStudents" role="dialog">
+	    <div class="modal-dialog">
+	    
+	      <!-- Modal content-->
+	      <div class="modal-content">
+		<div class="modal-header">
+		  <button type="button" class="close" data-dismiss="modal">&times;</button>
+		  <h4 class="modal-title">View All Students</h4>
 		</div>
+		<div class="modal-body">
+		  <?php system('java -cp .:mysql-connector-java-5.1.40-bin.jar RegistrationDbManager D '); ?>
+		</div>
+		
 	      </div>
 	      
 	    </div>
