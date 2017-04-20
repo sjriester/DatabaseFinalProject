@@ -160,4 +160,4 @@ public class RegistrationDbManager{
             e.printStackTrace();
         }
     }
-}	
+}
