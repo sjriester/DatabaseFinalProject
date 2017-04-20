@@ -41,6 +41,7 @@ public class RegistrationDbManager{
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	public static void addStudent(String studentId, String fName, String lName, String major) {
+		System.out.println("*******************************Test*************************");
 		insert("Student", "\"" + studentId + "\", \"" + fName + "\", \"" + lName + "\", \"" + major + "\"");
 	}
 
