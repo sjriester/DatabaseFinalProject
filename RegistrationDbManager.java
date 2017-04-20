@@ -109,7 +109,7 @@ public class RegistrationDbManager{
 	public static void query(String q) {
         try {
             ResultSet resultSet = statement.executeQuery(q);
-            System.out.println("\n---------------------------------");
+            System.out.print("\n--------------------------------- <br>");
             print(resultSet);
         }
         catch (SQLException e) {
