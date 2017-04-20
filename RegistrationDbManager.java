@@ -148,7 +148,8 @@ public class RegistrationDbManager{
         String columnValue;
         while (resultSet.next()) {
             for (int i = 1; i <= numColumns; i++) {
-				columnValue = resultSet.getString(i).substring(0,20);
+				columnValue = resultSet.getString(i);
+
                 if (i >= 1) {
 					int length = columnValue.length();
 					int toAppend = (20 - length);
