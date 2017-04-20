@@ -293,7 +293,7 @@
 		  <button type="button" class="close" data-dismiss="modal">&times;</button>
 		  <h4 class="modal-title">View All Students</h4>
 		</div>
-		<div class="modal-body">
+		<div class="modal-body text-left">
 		  <?php system('java -cp .:mysql-connector-java-5.1.40-bin.jar RegistrationDbManager D '); ?>
 		</div>
 		
