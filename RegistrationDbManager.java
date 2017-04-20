@@ -133,7 +133,7 @@ public class RegistrationDbManager{
 			data = metaData.getColumnName(i);
             if (i >= 1) {
 				int length = data.length();
-				int toAppend = (30 - length);
+				int toAppend = (20 - length);
 				for (int j = 0; j < toAppend; j++) {
 					data = (data + "&nbsp;");
  				}
@@ -151,7 +151,7 @@ public class RegistrationDbManager{
 				columnValue = resultSet.getString(i);
                 if (i >= 1) {
 					int length = columnValue.length();
-					int toAppend = (30 - length);
+					int toAppend = (20 - length);
 					for (int j = 0; j < toAppend; j++) {
 						columnValue = (columnValue + "&nbsp;");
  					}
