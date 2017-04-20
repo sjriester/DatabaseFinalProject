@@ -128,11 +128,17 @@ public class RegistrationDbManager{
 
 	// Print the attribute names
     public static void printHeader(ResultSetMetaData metaData, int numColumns) throws SQLException {
+		String data; 
         for (int i = 1; i <= numColumns; i++) {
-            if (i > 1)
-                System.out.print(",  ");
-			String formattedString = (metaData.getColumnName(i) + "                              ").substring(0,30); 
-            System.out.print(formattedString);
+			data = metaData.getColumnName(i);
+            if (i >= 1) {
+				int length = data.length();
+				int toAppend = (30 - length);
+				for (int j = 0; j < toAppend; j++) {
+					data = (data + "&nbsp;");
+ 				}
+			}
+            System.out.print(data);
         }
         System.out.print("<br>");
     }
@@ -142,11 +148,15 @@ public class RegistrationDbManager{
         String columnValue;
         while (resultSet.next()) {
             for (int i = 1; i <= numColumns; i++) {
-                if (i > 1)
-                    System.out.print(",  ");
-                columnValue = resultSet.getString(i);
-				String formattedString = (columnValue + "                              ").substring(0,30); 
-                System.out.print(formattedString);
+				columnValue = resultSet.getString(i);
+                if (i >= 1) {
+					int length = columnValue.length();
+					int toAppend = (30 - length);
+					for (int j = 0; j < toAppend; j++) {
+						columnValue = (columnValue + "&nbsp;");
+ 					}
+				}
+				System.out.print(columnValue);
             }
             System.out.print("<br>");
         }
