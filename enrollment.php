@@ -215,7 +215,8 @@
 	 <?php
 		if (isset($_POST['firstname']))
 		{
-			$command = "java -cp .:mysql-connector-java-5.1.40-bin.jar RegistrationDBManager A 888888888 Dawg Rohnson Spit";
+   			 $command = 'java hello Sam';
+			//$command = "java -cp .:mysql-connector-java-5.1.40-bin.jar RegistrationDBManager A 888888888 Dawg Rohnson Spit";
 			echo "command: $command <br>";
     			system($command);
 			//echo "Student Added: " . $_POST['firstname'] . " " . $_POST['lastname'];
