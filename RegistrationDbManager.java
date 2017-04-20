@@ -134,7 +134,7 @@ public class RegistrationDbManager{
                 System.out.print(",  ");
             System.out.print(metaData.getColumnName(i));
         }
-        System.out.println();
+        System.out.print("<br>");
     }
 
     // Print the attribute values for all tuples in the result
@@ -147,7 +147,7 @@ public class RegistrationDbManager{
                 columnValue = resultSet.getString(i);
                 System.out.print(columnValue);
             }
-            System.out.println("");
+            System.out.print("<br>");
         }
     }
 
