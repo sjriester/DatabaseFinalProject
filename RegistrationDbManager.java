@@ -43,7 +43,16 @@ public class RegistrationDbManager{
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	public static void addStudent(String studentId, String fName, String lName, String major) {
-		insert("Student", "\"" + studentId + "\", \"" + fName + "\", \"" + lName + "\", \"" + major + "\"");
+		if(studentId.length() != 9) {
+			System.out.print(false);
+			return;
+		}
+		if(!(isNum(studentId))) {
+			System.out.print(false);
+			return;
+		}
+		boolean success = insert("Student", "\"" + studentId + "\", \"" + fName + "\", \"" + lName + "\", \"" + major + "\"");
+		System.out.print(success);
 	}
 
 	public static void addCourse(String deptCode, String courseNum, String title, String creditHours) {
@@ -77,6 +86,17 @@ public class RegistrationDbManager{
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Utility Functions
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	// used to test if a string can be converted to a num
+	public static boolean isNum(String testNum) {
+	int temp = 0;
+		try {
+    		temp = Integer.parseInt(testNum);
+    	} catch (NumberFormatException ex) {
+    		return false;
+    	}
+		return true;
+	}
 
 	// Used to generate the next valid id for a row of a table, guarentees no duplicates
 	public static int generateNum(String table, String column) throws IOException, SQLException {
@@ -175,12 +195,13 @@ public class RegistrationDbManager{
     }
 
     // Insert into any table, any values from data passed in as String parameters
-    public static void insert(String table, String values) {
-        String query = "INSERT INTO " + table + " VALUES (" + values + ");" ;
+    public static boolean insert(String table, String values) {
+        String query = "INSERT INTO " + table + " VALUES (" + values + ");";
         try {
             statement.executeUpdate(query);
         } catch (SQLException e) {
-            e.printStackTrace();
+            return false;
         }
+		return true;
     }
 }

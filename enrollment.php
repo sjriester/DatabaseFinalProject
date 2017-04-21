@@ -212,9 +212,19 @@
   #passText {
   	color: #000000;
   }
+  #LogoutButton {
+  	width: 100%;
+  }
   </style>
   
-  
+<?php 
+	if (isset($_POST['logintext'])) {
+		$_login = shell_exec('java -cp .:mysql-connector-java-5.1.40-bin.jar RegistrationDbManager F ' . $_POST['logintext'] . ' ' . $_POST['passtext']);
+	} else {
+		$_login = "2";
+	}
+	
+?>  
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="50">
 
@@ -230,10 +240,11 @@
 	    </div>
 	    <div class="collapse navbar-collapse" id="myNavbar">
 	      <ul class="nav navbar-nav navbar-right">
-		  <span class="caret"></span></a>
-		  <ul class="dropdown-menu">
-		    <li><a href="#"></a></li>  
-		  </ul>
+		      	<?php if($_login == "1") { ?>
+			      		<form method="post" action="enrollment.php">
+			      			<input class="btn btn-large" type="submit" name="logout" value="Logout" id="LogoutButton"></div>
+			      		</form>
+		      	<?php }	?>
 		</li>
 	      </ul>
 	    </div>
@@ -360,8 +371,6 @@
    <br>P : (479)-575-2905
    <br>E : helpdesk@uark.edu</p>
 </div>
- 
-
 
 <script>
 $(document).ready(function(){
