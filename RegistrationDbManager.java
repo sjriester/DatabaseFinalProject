@@ -42,7 +42,7 @@ public class RegistrationDbManager{
 //Functions for user menu options
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	public static boolean addStudent(String studentId, String fName, String lName, String major) {
+	public static void addStudent(String studentId, String fName, String lName, String major) {
 		boolean success = insert("Student", "\"" + studentId + "\", \"" + fName + "\", \"" + lName + "\", \"" + major + "\"");
 		System.out.print(success);
 	}
