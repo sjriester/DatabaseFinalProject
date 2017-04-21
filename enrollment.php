@@ -2,9 +2,6 @@
 <html lang="en">
 <head>
 
-
-
-
   <title>Student EC</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -259,11 +256,11 @@
 	    </div>
 	    
 	    <div class="col-sm-4">
-	      <div class="btn btn-large">Add Course</div>
+	      <div class="btn btn-large" data-toggle="modal" data-target="#AddCourse">Add Course</div>
 	    </div>
 	    
 	    <div class="col-sm-4">
-	      <div class="btn btn-large">Add Application</div>
+	      <div class="btn btn-large" data-toggle="modal" data-target="#AddApplication">Add Application</div>
 	    </div>
 	    
 	  </div>
@@ -274,11 +271,11 @@
 	    </div>
 	    
 	    <div class="col-sm-4">
-	      <div class="btn btn-large">View Department Courses</div>
+	      <div class="btn btn-large" data-toggle="modal" data-target="#ViewDepartmentCourses">View Department Courses</div>
 	    </div>
 	    
 	    <div class="col-sm-4">
-	      <div class="btn btn-large">View Student Courses</div>
+	      <div class="btn btn-large" data-toggle="modal" data-target="#ViewStudentCourses">View Student Courses</div>
 	    </div>
 	    
 	    </div>
@@ -341,6 +338,71 @@
 	    </div>
 	  </div> <!-- End Modal-->
 	  
+	  <!-- Modal -->
+	  <div class="modal fade" id="AddCourse" role="dialog">
+	    <div class="modal-dialog">
+	    
+	      <!-- Modal content-->
+	      <div class="modal-content">
+		<div class="modal-header">
+		  <button type="button" class="close" data-dismiss="modal">&times;</button>
+		  <h4 class="modal-title">Add a Student</h4>
+		</div>
+		<div class="modal-body">
+		  <form method="post" action="enrollment.php">
+		  	Department Code<br>
+	  	  	<input type="text" name="cStudentId">
+		  	<br><br>
+	  	  	Course Number<br>
+	  	  	<input type="text" name="cCourseNumber">
+		  	<br><br>
+	  	  	Title<br>
+	  	  	<input type="text" name="title">
+	  		<br><br>
+	  		Credit Hours<br>
+	  	  	<input type="text" name="creditHours">
+		  	<br><br>
+		  	<br>
+	  		<input type="submit" value="Submit">
+		  </form>
+		</div>
+		
+	      </div>
+	      
+	    </div>
+	  </div> <!-- End Modal-->
+	  
+	  <!-- Modal -->
+	  <div class="modal fade" id="AddApplication" role="dialog">
+	    <div class="modal-dialog">
+	    
+	      <!-- Modal content-->
+	      <div class="modal-content">
+		<div class="modal-header">
+		  <button type="button" class="close" data-dismiss="modal">&times;</button>
+		  <h4 class="modal-title">Add a Student</h4>
+		</div>
+		<div class="modal-body">
+		  <form method="post" action="enrollment.php">
+		  	Student ID<br>
+	  	  	<input type="text" name="appStudentId">
+		  	<br><br>
+	  	  	Course Number<br>
+	  	  	<input type="text" name="aCourseNumber">
+		  	<br><br>
+	  	  	Department Code<br>
+	  	  	<input type="text" name="aDepCode">
+	  		<br><br>
+		  	<br>
+	  		<input type="submit" value="Submit">
+		  </form>
+		</div>
+		
+	      </div>
+	      
+	    </div>
+	  </div> <!-- End Modal-->
+	  
 	  
 	  <!-- Modal -->
 	  <div class="modal fade" id="ViewStudents" role="dialog">
@@ -360,17 +422,47 @@
 	      
 	    </div>
 	  </div> <!-- End Modal-->
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
 	  
+	  <!-- Modal -->
+	  <div class="modal fade" id="ViewDepartmentCourses" role="dialog">
+	    <div class="modal-dialog Db">
+	    
+	      <!-- Modal content-->
+	      <div class="modal-content">
+		<div class="modal-header">
+		  <button type="button" class="close" data-dismiss="modal">&times;</button>
+		  <h4 class="modal-title">View Courses in Department</h4>
+		</div>
+		<div class="modal-body Db text-left">
+		  <?php system('java -cp .:mysql-connector-java-5.1.40-bin.jar RegistrationDbManager E ');
+		  	echo 'testE'; ?>
+		</div>
+		
+	      </div>
+	      
+	    </div>
+	  </div> <!-- End Modal-->
+	  
+	  <!-- Modal -->
+	  <div class="modal fade" id="ViewStudentCourses" role="dialog">
+	    <div class="modal-dialog Db">
+	    
+	      <!-- Modal content-->
+	      <div class="modal-content">
+		<div class="modal-header">
+		  <button type="button" class="close" data-dismiss="modal">&times;</button>
+		  <h4 class="modal-title">View Courses for Student</h4>
+		</div>
+		<div class="modal-body Db text-left">
+		  <?php system('java -cp .:mysql-connector-java-5.1.40-bin.jar RegistrationDbManager Q ');
+		  	echo 'testQ'; ?>
+		</div>
+		
+	      </div>
+	      
+	    </div>
+	  </div> <!-- End Modal-->
+	 
 	</div>
 	    
 	</div> <!-- End Container-->
