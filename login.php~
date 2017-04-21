@@ -1,3 +1,17 @@
+ <?php if (isset($_POST['logintext'])) {
+	$valid = shell_exec('java -cp .:mysql-connector-java-5.1.40-bin.jar RegistrationDbManager F ' . $_POST['logintext'] . ' ' . $_POST['passtext']);
+ 		//echo $valid;
+ 		if ($valid == "0") {
+		//echo '<br>INVALID LOGIN';
+		}
+		elseif ($valid == "1") {
+			header("Location: enrollment.php");
+		}
+	}
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -240,12 +254,6 @@
 	  </div>
 	</nav>
 
-
-<?php if (!isset($_POST['logintext'])) {
-	$valid = "0";
-	}
-	
-	if($valid == "0") { ?>
 	<!-- Container-->
 	<div id="database" class="container text-center">
 		<div class= "col-md-4">
@@ -253,29 +261,25 @@
 		<div class= "col-md-4">
 			<div class = "row login">
 				<br>
-				<form class="loginForm" method="post" action="enrollment.php">
+				<form class="loginForm" method="post" action="login.php">
 				  	Login ID<br>
 			  	  	<input type="text" name="logintext" id="loginText">
 				  	<br><br>
 			  	  	Password<br>
 			  	  	<input type="password" name="passtext" id="passText">
-				  	<br><br>
-			  		<input type="submit" class="btn btn-small" value="Submit">
-				 </form>
-				 <?php if (isset($_POST['logintext'])) {
-				 	$valid = shell_exec('java -cp .:mysql-connector-java-5.1.40-bin.jar RegistrationDbManager F ' . $_POST['logintext'] . ' ' . $_POST['passtext']);
-				 		//echo $valid;
-				 		if ($valid == "0") {
-						echo '<br>INVALID LOGIN';
+				  	<br><?php if (isset($_POST['logintext'])) {
+			 			if ($valid == "0") {
+							echo '<br>INVALID LOGIN';
 						}
 					}
-				 ?>
+					?>
+					<br>
+			  		<input type="submit" class="btn btn-small" value="Submit">
+				 </form>
 				 <br>
 			</div>
 		</div>
 	</div>
-
-<?php } ?>
 
 	</div>  
 	    

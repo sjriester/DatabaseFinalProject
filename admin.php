@@ -262,10 +262,13 @@
 			<div class = "row login">
 				<br>
 				<form class="loginForm" method="post" action="login.php">
-				  	Login ID<br>
+				  	New User<br>
 			  	  	<input type="text" name="logintext" id="loginText">
 				  	<br><br>
 			  	  	Password<br>
+			  	  	<input type="password" name="passtext" id="passText">
+			  	  	<br><br>
+			  	  	Repeat Password<br>
 			  	  	<input type="password" name="passtext" id="passText">
 				  	<br><?php if (isset($_POST['logintext'])) {
 			 			if ($valid == "0") {
