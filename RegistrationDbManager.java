@@ -33,6 +33,8 @@ public class RegistrationDbManager{
 						  break;
 				case "G": logIn(args[1], args[2]);
 						  break;
+				case "H": createUser(args[1], args[2]);
+						  break;
 				default:  break;
 			}
 		disConnect();
@@ -70,7 +72,7 @@ public class RegistrationDbManager{
 	}
 
 
-	public static void addApplication(String studentId, String courseNum, String deptCode) {
+	public static void addApplication(String studentId, String deptCode, String courseNum) {
 		if((studentId.length() != 9) || (courseNum.length() != 4) || (deptCode.length() != 4)) {
 			System.out.print(false);
 			return;
@@ -109,6 +111,20 @@ public class RegistrationDbManager{
 		while(resultSet.next()){
 			System.out.print(resultSet.getInt("FOUND_ROWS()"));
 		}
+	}
+
+
+	public static void createUser(String id, String password) throws IOException, SQLException {
+		if((id.length() != 9)) {
+			System.out.print(false);
+			return;
+		}
+		if(!(isNum(studentId))) {
+			System.out.print(false);
+			return;
+		}
+		boolean success = insert("login", "\"" + studentId + "\", \"" + courseNum + "\", \"" + deptCode + "\"");
+		System.out.print(success);
 	}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

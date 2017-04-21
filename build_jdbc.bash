@@ -5,4 +5,4 @@ echo "Compiling..."
 javac *.java
 
 echo "Running..."
-java -cp .:mysql-connector-java-5.1.40-bin.jar RegistrationDbManager A 123456654 George Ham Meat
+java -cp .:mysql-connector-java-5.1.40-bin.jar RegistrationDbManager B csce 2004 PF1 4
