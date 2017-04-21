@@ -240,31 +240,7 @@
 	  </div>
 	</nav>
 
-<?php if(true) { ?>
-	<!-- Container-->
-	<div id="database" class="container text-center">
-		<div class= "col-md-4">
-		</div>
-		<div class= "col-md-4">
-			<div class = "row login">
-				<br>
-				<form class="loginForm" method="post" action="enrollment.php">
-				  	Login ID<br>
-			  	  	<input type="text" name="logintext" id="loginText">
-				  	<br><br>
-			  	  	Password<br>
-			  	  	<input type="password" name="passtext" id="passText">
-				  	<br><br>
-			  		<input type="submit" class="btn btn-small" value="Submit">
-				 </form>
-				 <br>
-			</div>
-		</div>
-	</div>
-
-<?php } ?>
-
-<?php if(false) { ?>
+<?php if($valid == "1") { ?>
 	<!-- Container-->
 	<div id="database" class="container text-center">
 	 <?php

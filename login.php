@@ -242,113 +242,33 @@
 
 	<!-- Container-->
 	<div id="database" class="container text-center">
-	 <?php
-		if (isset($_POST['firstname']))
-		{
-   			$command = 'java -cp .:mysql-connector-java-5.1.40-bin.jar RegistrationDbManager A ' . $_POST['studentId'] . ' ' . $_POST['firstname'] . ' ' . $_POST['lastname'] . ' ' . $_POST['major'];
-   			//echo $command;
-   			system($command);
-		}
-	?>
-	
-	 <br>
-	  <div class="row top">
-	  
-	    <div class="col-sm-4">
-	      <button type="button" class="btn btn-large" data-toggle="modal" data-target="#AddStudent">Add Student</button> 
-	    </div>
-	    
-	    <div class="col-sm-4">
-	      <div class="btn btn-large">Add Course</div>
-	    </div>
-	    
-	    <div class="col-sm-4">
-	      <div class="btn btn-large">Add Application</div>
-	    </div>
-	    
-	  </div>
-	  <div class="row bottom">
-	   
-	    <div class="col-sm-4">
-	      <div class="btn btn-large" data-toggle="modal" data-target="#ViewStudents">View Students</div>
-	    </div>
-	    
-	    <div class="col-sm-4">
-	      <div class="btn btn-large">View Department Courses</div>
-	    </div>
-	    
-	    <div class="col-sm-4">
-	      <div class="btn btn-large">View Student Courses</div>
-	    </div>
-	  </div>
-	    
-	  <!-- Modal -->
-	  <div class="modal fade" id="AddStudent" role="dialog">
-	    <div class="modal-dialog">
-	    
-	      <!-- Modal content-->
-	      <div class="modal-content">
-		<div class="modal-header">
-		  <button type="button" class="close" data-dismiss="modal">&times;</button>
-		  <h4 class="modal-title">Add a Student</h4>
+		<div class= "col-md-4">
 		</div>
-		<div class="modal-body">
-		  <form method="post" action="enrollment.php">
-		  	Student ID<br>
-	  	  	<input type="text" name="studentId">
-		  	<br><br>
-	  	  	First name<br>
-	  	  	<input type="text" name="firstname">
-		  	<br><br>
-	  	  	Last name<br>
-	  	  	<input type="text" name="lastname">
-	  		<br><br>
-	  		Major<br>
-	  	  	<input type="text" name="major">
-		  	<br><br><br>
-	  		<input type="submit" value="Submit">
-		  </form> 
+		<div class= "col-md-4">
+			<div class = "row login">
+				<br>
+				<form class="loginForm" method="post" action="enrollment.php">
+				  	Login ID<br>
+			  	  	<input type="text" name="logintext" id="loginText">
+				  	<br><br>
+			  	  	Password<br>
+			  	  	<input type="password" name="passtext" id="passText">
+				  	<br><br>
+			  		<input type="submit" class="btn btn-small" value="Submit">
+				 </form>
+				 <?php if (isset($_POST['logintext'])) {
+				 	$valid = shell_exec('java -cp .:mysql-connector-java-5.1.40-bin.jar RegistrationDbManager F ' . $_POST['logintext'] . ' ' . $_POST['passtext']);
+				 		//echo $valid;
+				 		if ($valid == "0") {
+						echo '<br>INVALID LOGIN';
+						}
+					}
+				 ?>
+				 <br>
+			</div>
 		</div>
-		
-	      </div>
-	      
-	    </div>
-	  </div> <!-- End Modal-->
-	  
-	  
-	  <!-- Modal -->
-	  <div class="modal fade" id="ViewStudents" role="dialog">
-	    <div class="modal-dialog Db">
-	    
-	      <!-- Modal content-->
-	      <div class="modal-content">
-		<div class="modal-header">
-		  <button type="button" class="close" data-dismiss="modal">&times;</button>
-		  <h4 class="modal-title">View All Students</h4>
-		</div>
-		<div class="modal-body Db text-left">
-		  <?php system('java -cp .:mysql-connector-java-5.1.40-bin.jar RegistrationDbManager D '); ?>
-		</div>
-		
-	      </div>
-	      
-	    </div>
-	  </div> <!-- End Modal-->
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	  
 	</div>
-	    
-	</div> <!-- End Container-->
-	  
+
 	</div>  
 	    
 	  
