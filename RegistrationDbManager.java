@@ -27,11 +27,11 @@ public class RegistrationDbManager{
 						  break;
 				case "D": viewStudents();
 						  break;
-				case "E": viewDeptCourses();
+				case "E": viewDeptCourses(args[1]);
 						  break;
-				case "F": logIn(args[1], args[2]);
+				case "F": viewStudentCourses(args[1]);
 						  break;
-				case "Q": viewStudentCourses();
+				case "G": logIn(args[1], args[2]);
 						  break;
 				default:  break;
 			}
@@ -55,27 +55,55 @@ public class RegistrationDbManager{
 		System.out.print(success);
 	}
 
+
 	public static void addCourse(String deptCode, String courseNum, String title, String creditHours) {
-		insert("Course", "\"" + deptCode + "\", \"" + courseNum + "\", \"" + title + "\", " + creditHours);
+		if((deptCode.length() != 4) || (courseNum.length() != 4) || (creditHours.length() != 1)) {
+			System.out.print(false);
+			return;
+		}
+		if((!(isNum(courseNum))) || (!(isNum(creditHours)))) {
+			System.out.print(false);
+			return;
+		}
+		boolean success = insert("Course", "\"" + deptCode + "\", \"" + courseNum + "\", \"" + title + "\", " + creditHours);
+		System.out.print(success);
 	}
 
+
 	public static void addApplication(String studentId, String courseNum, String deptCode) {
-		insert("Enrollment", "\"" + studentId + "\", \"" + courseNum + "\", \"" + deptCode + "\"");
+		if((studentId.length() != 9) || (courseNum.length() != 4) || (deptCode.length() != 4)) {
+			System.out.print(false);
+			return;
+		}
+		if((!(isNum(courseNum))) || (!(isNum(studentId)))) {
+			System.out.print(false);
+			return;
+		}
+		boolean success = insert("Enrollment", "\"" + studentId + "\", \"" + courseNum + "\", \"" + deptCode + "\"");
+		System.out.print(success);
 	}
+
 
 	public static void viewStudents() {
 		String query = "SELECT * FROM Student";
 		query(query);
 	}
 
-	public static void viewDeptCourses() {
+
+	public static void viewDeptCourses(String departmentCode) {
+		String query = "Select * FROM Course WHERE DepartmentCode = \"" + departmentCode + "\";";
+		query(query);
 	}
 
-	public static void viewStudentCourses() {
+
+	public static void viewStudentCourses(String studentId) {
+		String query = "Select * FROM Course WHERE StudentId = \"" + studentId + "\";";
+		query(query);
 	}
+
 
 	public static void logIn(String id, String password) throws IOException, SQLException {
-		String query = "Select * FROM login WHERE id = \"" + id + "\" AND password = \"" + password + "\"";
+		String query = "Select * FROM login WHERE id = \"" + id + "\" AND password = \"" + password + "\";";
 		statement.executeQuery(query);
 		ResultSet resultSet = statement.executeQuery("SELECT FOUND_ROWS();");
 		while(resultSet.next()){
