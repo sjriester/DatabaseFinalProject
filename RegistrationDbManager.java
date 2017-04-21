@@ -33,8 +33,8 @@ public class RegistrationDbManager{
 						  break;
 				case "G": logIn(args[1], args[2]);
 						  break;
-			//	case "H": createUser(args[1], args[2]);
-			//			  break;
+				case "H": createUser(args[1], args[2]);
+						  break;
 				default:  break;
 			}
 		disConnect();
@@ -67,7 +67,7 @@ public class RegistrationDbManager{
 			System.out.print(false);
 			return;
 		}
-		boolean success = insert("Course", "\"" + deptCode + "\", \"" + courseNum + "\", \"" + title + "\", " + creditHours);
+		boolean success = insert("Course", "\"" + courseNum + "\", \"" + deptCode + "\", \"" + title + "\", " + creditHours);
 		System.out.print(success);
 	}
 
@@ -113,21 +113,12 @@ public class RegistrationDbManager{
 		}
 	}
 
-/*
+
 	public static void createUser(String id, String password) throws IOException, SQLException {
-		if((id.length() != 9)) {
-			System.out.print(false);
-			return;
-		}
-		if(!(isNum(studentId))) {
-			System.out.print(false);
-			return;
-		}
-		boolean success = insert("login", "\"" + studentId + "\", \"" + courseNum + "\", \"" + deptCode + "\"");
+		boolean success = insert("login", "\"" + id + "\", \"" + password + "\"");
 		System.out.print(success);
 	}
 
-*/
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Utility Functions
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
