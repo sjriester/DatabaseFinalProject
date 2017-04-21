@@ -212,9 +212,19 @@
   #passText {
   	color: #000000;
   }
+  #LogoutButton {
+  	width: 100%;
+  }
   </style>
   
-  
+<?php 
+	if (isset($_POST['logintext'])) {
+		$_login = shell_exec('java -cp .:mysql-connector-java-5.1.40-bin.jar RegistrationDbManager F ' . $_POST['logintext'] . ' ' . $_POST['passtext']);
+	} else {
+		$_login = "2";
+	}
+	
+?>  
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="50">
 
@@ -230,17 +240,18 @@
 	    </div>
 	    <div class="collapse navbar-collapse" id="myNavbar">
 	      <ul class="nav navbar-nav navbar-right">
-		  <span class="caret"></span></a>
-		  <ul class="dropdown-menu">
-		    <li><a href="#"></a></li>  
-		  </ul>
+		      	<?php if($_login == "1") { ?>
+			      		<form method="post" action="enrollment.php">
+			      			<input class="btn btn-large" type="submit" name="logout" value="Logout" id="LogoutButton"></div>
+			      		</form>
+		      	<?php }	?>
 		</li>
 	      </ul>
 	    </div>
 	  </div>
 	</nav>
 
-<?php if(true) { ?>
+<?php if($_login == "0" || $_login == "2") { ?>
 	<!-- Container-->
 	<div id="database" class="container text-center">
 		<div class= "col-md-4">
@@ -254,7 +265,7 @@
 				  	<br><br>
 			  	  	Password<br>
 			  	  	<input type="password" name="passtext" id="passText">
-				  	<br><br>
+				  	<br><?php if ($_login == "0") {echo "Invalid Login ID or Password";} ?><br>
 			  		<input type="submit" class="btn btn-small" value="Submit">
 				 </form>
 				 <br>
@@ -264,7 +275,7 @@
 
 <?php } ?>
 
-<?php if(false) { ?>
+<?php if($_login == "1") { ?>
 	<!-- Container-->
 	<div id="database" class="container text-center">
 	 <?php
@@ -374,7 +385,8 @@
 	    
 	</div> <!-- End Container-->
 	  
-	  <?php } ?>
+<?php } ?>
+	  
 	</div>  
 	    
 	  
@@ -386,8 +398,15 @@
    <br>P : (479)-575-2905
    <br>E : helpdesk@uark.edu</p>
 </div>
- 
 
+<?php } 
+	  
+  	if (isset($_POST['logout'])) {
+		$_login = "2";
+		//unset($_POST['logout']);
+		//unset($_POST['logintext']);
+	}
+?>
 
 <script>
 $(document).ready(function(){
