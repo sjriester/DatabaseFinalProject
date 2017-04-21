@@ -280,6 +280,7 @@
 			  		<input type="submit" class="btn btn-small" value="Submit">
 				 </form>
 				 <br>
+				 <a class="btn btn-small" href="login.php">Back</a>
 			</div>
 		</div>
 	</div>

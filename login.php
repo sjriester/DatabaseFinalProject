@@ -277,6 +277,8 @@
 			  		<input type="submit" class="btn btn-small" value="Submit">
 				 </form>
 				 <br>
+				 <a class="btn btn-small" href="admin.php">New User</a>
+				 
 			</div>
 		</div>
 	</div>

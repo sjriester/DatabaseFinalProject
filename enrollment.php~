@@ -242,11 +242,7 @@
 	    </div>
 	    <div class="collapse navbar-collapse" id="myNavbar">
 	      <ul class="nav navbar-nav navbar-right">
-		      	<?php if($_login == "1") { ?>
-			      		<form method="post" action="enrollment.php">
-			      			<input class="btn btn-large" type="submit" name="logout" value="Logout" id="LogoutButton"></div>
-			      		</form>
-		      	<?php }	?>
+		      	<a class="btn btn-small" href="admin.php">Logout</a>
 		</li>
 	      </ul>
 	    </div>
@@ -255,15 +251,6 @@
 
 	<!-- Container-->
 	<div id="database" class="container text-center">
-	 <?php
-		/*if (isset($_POST['firstname']))
-		{
-   			$command = 'java -cp .:mysql-connector-java-5.1.40-bin.jar RegistrationDbManager A ' . $_POST['studentId'] . ' ' . $_POST['firstname'] . ' ' . $_POST['lastname'] . ' ' . $_POST['major'];
-   			//echo $command;
-   			system($command);
-		}*/
-	?>
-	
 	 <br>
 	  <div class="row top">
 	  

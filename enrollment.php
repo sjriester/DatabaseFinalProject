@@ -242,11 +242,7 @@
 	    </div>
 	    <div class="collapse navbar-collapse" id="myNavbar">
 	      <ul class="nav navbar-nav navbar-right">
-		      	<?php if($_login == "1") { ?>
-			      		<form method="post" action="enrollment.php">
-			      			<input class="btn btn-large" type="submit" name="logout" value="Logout" id="LogoutButton"></div>
-			      		</form>
-		      	<?php }	?>
+		      	<a class="btn btn-small" href="login.php">Logout</a>
 		</li>
 	      </ul>
 	    </div>
