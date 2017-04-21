@@ -1,3 +1,17 @@
+ <?php if (isset($_POST['logintext'])) {
+	$valid = shell_exec('java -cp .:mysql-connector-java-5.1.40-bin.jar RegistrationDbManager F ' . $_POST['logintext'] . ' ' . $_POST['passtext']);
+ 		//echo $valid;
+ 		if ($valid == "0") {
+		//echo '<br>INVALID LOGIN';
+		}
+		elseif ($valid == "1") {
+			header("Location: enrollment.php");
+		}
+	}
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,11 +51,8 @@
   
   }
   .row.bottom {
-  	margin-bottom: 70px;
+  	margin-bottom: 420px;
   
-  }
-  .row.error {
-  	margin-bottom: 390px;
   }
   .btn {
   	width: 80%;
@@ -209,23 +220,14 @@
   	font-family: Tahoma, sans-serif;
   	font-weight: 900;
   }
-  .alert.alert-warning {
-  	color: #f5f5f5;
-  	background: #2d2d30;
-  	opacity: 0.9;
-  	border: #2d2d30;
-  
-  }
   #loginText {
   	color: #000000;
   }
   #passText {
   	color: #000000;
   }
-  #LogoutButton {
-  	width: 100%;
-  }
   </style>
+  
   
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="50">
@@ -242,7 +244,10 @@
 	    </div>
 	    <div class="collapse navbar-collapse" id="myNavbar">
 	      <ul class="nav navbar-nav navbar-right">
-		      	<a class="btn btn-small" href="admin.php">Logout</a>
+		  <span class="caret"></span></a>
+		  <ul class="dropdown-menu">
+		    <li><a href="#"></a></li>  
+		  </ul>
 		</li>
 	      </ul>
 	    </div>
@@ -251,130 +256,33 @@
 
 	<!-- Container-->
 	<div id="database" class="container text-center">
-	 <br>
-	  <div class="row top">
-	  
-	    <div class="col-sm-4">
-	      <button type="button" class="btn btn-large" data-toggle="modal" data-target="#AddStudent">Add Student</button> 
-	    </div>
-	    
-	    <div class="col-sm-4">
-	      <div class="btn btn-large">Add Course</div>
-	    </div>
-	    
-	    <div class="col-sm-4">
-	      <div class="btn btn-large">Add Application</div>
-	    </div>
-	    
-	  </div>
-	  <div class="row bottom">
-	   
-	    <div class="col-sm-4">
-	      <div class="btn btn-large" data-toggle="modal" data-target="#ViewStudents">View Students</div>
-	    </div>
-	    
-	    <div class="col-sm-4">
-	      <div class="btn btn-large">View Department Courses</div>
-	    </div>
-	    
-	    <div class="col-sm-4">
-	      <div class="btn btn-large">View Student Courses</div>
-	    </div>
-	    
-	    </div>
-	    <div class = "row error">
-	    	<div class="col-sm-2 col-md-offset-5">
-	    	<?php if(isset($_POST['firstname'])) {
-		  		$validStudent = shell_exec('java -cp .:mysql-connector-java-5.1.40-bin.jar RegistrationDbManager A ' . $_POST['studentId'] . ' ' . $_POST['firstname'] . ' ' . $_POST['lastname'] . ' ' . $_POST['major']);
-		  		
-		  		if ($validStudent == "false") {  ?>
-		  		<div class="alert alert-warning">
-    					<strong>Invalid Input! <?php //echo $validStudent;?></strong> The student was not added.
-  				</div>
-		  		
-		  		<?php
-		  		}
-		  		if($validStudent == "true") { ?>
-		  		<div class="alert alert-warning">
-    					<strong>The student was added.</strong>
-  				</div>
-		  		
-		  		
-		  		<?php	
-		  		}
-		  	}
-		  	?>
-		 </div>
-	  </div>
-	    
-	  <!-- Modal -->
-	  <div class="modal fade" id="AddStudent" role="dialog">
-	    <div class="modal-dialog">
-	    
-	      <!-- Modal content-->
-	      <div class="modal-content">
-		<div class="modal-header">
-		  <button type="button" class="close" data-dismiss="modal">&times;</button>
-		  <h4 class="modal-title">Add a Student</h4>
+		<div class= "col-md-4">
 		</div>
-		<div class="modal-body">
-		  <form method="post" action="enrollment.php">
-		  	Student ID<br>
-	  	  	<input type="text" name="studentId">
-		  	<br><br>
-	  	  	First name<br>
-	  	  	<input type="text" name="firstname">
-		  	<br><br>
-	  	  	Last name<br>
-	  	  	<input type="text" name="lastname">
-	  		<br><br>
-	  		Major<br>
-	  	  	<input type="text" name="major">
-		  	<br><br>
-		  	<br>
-	  		<input type="submit" value="Submit">
-		  </form>
+		<div class= "col-md-4">
+			<div class = "row login">
+				<br>
+				<form class="loginForm" method="post" action="login.php">
+				  	Login ID<br>
+			  	  	<input type="text" name="logintext" id="loginText">
+				  	<br><br>
+			  	  	Password<br>
+			  	  	<input type="password" name="passtext" id="passText">
+				  	<br><?php if (isset($_POST['logintext'])) {
+			 			if ($valid == "0") {
+							echo '<br>INVALID LOGIN';
+						}
+					}
+					?>
+					<br>
+			  		<input type="submit" class="btn btn-small" value="Submit">
+				 </form>
+				 <br>
+				 <a class="btn" href="admin.php">New User</a>
+				 
+			</div>
 		</div>
-		
-	      </div>
-	      
-	    </div>
-	  </div> <!-- End Modal-->
-	  
-	  
-	  <!-- Modal -->
-	  <div class="modal fade" id="ViewStudents" role="dialog">
-	    <div class="modal-dialog Db">
-	    
-	      <!-- Modal content-->
-	      <div class="modal-content">
-		<div class="modal-header">
-		  <button type="button" class="close" data-dismiss="modal">&times;</button>
-		  <h4 class="modal-title">View All Students</h4>
-		</div>
-		<div class="modal-body Db text-left">
-		  <?php system('java -cp .:mysql-connector-java-5.1.40-bin.jar RegistrationDbManager D '); ?>
-		</div>
-		
-	      </div>
-	      
-	    </div>
-	  </div> <!-- End Modal-->
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	 
-	  
 	</div>
-	    
-	</div> <!-- End Container-->
-	  
+
 	</div>  
 	    
 	  
@@ -386,6 +294,8 @@
    <br>P : (479)-575-2905
    <br>E : helpdesk@uark.edu</p>
 </div>
+ 
+
 
 <script>
 $(document).ready(function(){

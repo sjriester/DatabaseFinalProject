@@ -37,8 +37,11 @@
   
   }
   .row.bottom {
-  	margin-bottom: 420px;
+  	margin-bottom: 70px;
   
+  }
+  .row.error {
+  	margin-bottom: 390px;
   }
   .btn {
   	width: 80%;
@@ -206,6 +209,13 @@
   	font-family: Tahoma, sans-serif;
   	font-weight: 900;
   }
+  .alert.alert-warning {
+  	color: #f5f5f5;
+  	background: #2d2d30;
+  	opacity: 0.9;
+  	border: #2d2d30;
+  
+  }
   #loginText {
   	color: #000000;
   }
@@ -217,14 +227,6 @@
   }
   </style>
   
-<?php 
-	if (isset($_POST['logintext'])) {
-		$_login = shell_exec('java -cp .:mysql-connector-java-5.1.40-bin.jar RegistrationDbManager F ' . $_POST['logintext'] . ' ' . $_POST['passtext']);
-	} else {
-		$_login = "2";
-	}
-	
-?>  
 </head>
 <body id="myPage" data-spy="scroll" data-target=".navbar" data-offset="50">
 
@@ -240,53 +242,15 @@
 	    </div>
 	    <div class="collapse navbar-collapse" id="myNavbar">
 	      <ul class="nav navbar-nav navbar-right">
-		      	<?php if($_login == "1") { ?>
-			      		<form method="post" action="enrollment.php">
-			      			<input class="btn btn-large" type="submit" name="logout" value="Logout" id="LogoutButton"></div>
-			      		</form>
-		      	<?php }	?>
+		      	<a class="btn btn-small" href="login.php">Logout</a>
 		</li>
 	      </ul>
 	    </div>
 	  </div>
 	</nav>
 
-<?php if($_login == "0" || $_login == "2") { ?>
 	<!-- Container-->
 	<div id="database" class="container text-center">
-		<div class= "col-md-4">
-		</div>
-		<div class= "col-md-4">
-			<div class = "row login">
-				<br>
-				<form class="loginForm" method="post" action="enrollment.php">
-				  	Login ID<br>
-			  	  	<input type="text" name="logintext" id="loginText">
-				  	<br><br>
-			  	  	Password<br>
-			  	  	<input type="password" name="passtext" id="passText">
-				  	<br><?php if ($_login == "0") {echo "Invalid Login ID or Password";} ?><br>
-			  		<input type="submit" class="btn btn-small" value="Submit">
-				 </form>
-				 <br>
-			</div>
-		</div>
-	</div>
-
-<?php } ?>
-
-<?php if($_login == "1") { ?>
-	<!-- Container-->
-	<div id="database" class="container text-center">
-	 <?php
-		if (isset($_POST['firstname']))
-		{
-   			$command = 'java -cp .:mysql-connector-java-5.1.40-bin.jar RegistrationDbManager A ' . $_POST['studentId'] . ' ' . $_POST['firstname'] . ' ' . $_POST['lastname'] . ' ' . $_POST['major'];
-   			//echo $command;
-   			system($command);
-		}
-	?>
-	
 	 <br>
 	  <div class="row top">
 	  
@@ -316,6 +280,31 @@
 	    <div class="col-sm-4">
 	      <div class="btn btn-large">View Student Courses</div>
 	    </div>
+	    
+	    </div>
+	    <div class = "row error">
+	    	<div class="col-sm-2 col-md-offset-5">
+	    	<?php if(isset($_POST['firstname'])) {
+		  		$validStudent = shell_exec('java -cp .:mysql-connector-java-5.1.40-bin.jar RegistrationDbManager A ' . $_POST['studentId'] . ' ' . $_POST['firstname'] . ' ' . $_POST['lastname'] . ' ' . $_POST['major']);
+		  		
+		  		if ($validStudent == "false") {  ?>
+		  		<div class="alert alert-warning">
+    					<strong>Invalid Input! <?php //echo $validStudent;?></strong> The student was not added.
+  				</div>
+		  		
+		  		<?php
+		  		}
+		  		if($validStudent == "true") { ?>
+		  		<div class="alert alert-warning">
+    					<strong>The student was added.</strong>
+  				</div>
+		  		
+		  		
+		  		<?php	
+		  		}
+		  	}
+		  	?>
+		 </div>
 	  </div>
 	    
 	  <!-- Modal -->
@@ -341,9 +330,10 @@
 	  		<br><br>
 	  		Major<br>
 	  	  	<input type="text" name="major">
-		  	<br><br><br>
+		  	<br><br>
+		  	<br>
 	  		<input type="submit" value="Submit">
-		  </form> 
+		  </form>
 		</div>
 		
 	      </div>
@@ -385,8 +375,6 @@
 	    
 	</div> <!-- End Container-->
 	  
-<?php } ?>
-	  
 	</div>  
 	    
 	  
@@ -398,15 +386,6 @@
    <br>P : (479)-575-2905
    <br>E : helpdesk@uark.edu</p>
 </div>
-
-<?php
-	  
-  	if (isset($_POST['logout'])) {
-		$_login = "2";
-		//unset($_POST['logout']);
-		//unset($_POST['logintext']);
-	}
-?>
 
 <script>
 $(document).ready(function(){
