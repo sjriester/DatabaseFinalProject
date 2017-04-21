@@ -43,7 +43,8 @@ public class RegistrationDbManager{
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	public static boolean addStudent(String studentId, String fName, String lName, String major) {
-		return insert("Student", "\"" + studentId + "\", \"" + fName + "\", \"" + lName + "\", \"" + major + "\"");
+		boolean success = insert("Student", "\"" + studentId + "\", \"" + fName + "\", \"" + lName + "\", \"" + major + "\"");
+		System.out.print(success);
 	}
 
 	public static void addCourse(String deptCode, String courseNum, String title, String creditHours) {
