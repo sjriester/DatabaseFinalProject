@@ -33,8 +33,8 @@ public class RegistrationDbManager{
 						  break;
 				case "G": logIn(args[1], args[2]);
 						  break;
-				case "H": createUser(args[1], args[2]);
-						  break;
+			//	case "H": createUser(args[1], args[2]);
+			//			  break;
 				default:  break;
 			}
 		disConnect();
@@ -113,7 +113,7 @@ public class RegistrationDbManager{
 		}
 	}
 
-
+/*
 	public static void createUser(String id, String password) throws IOException, SQLException {
 		if((id.length() != 9)) {
 			System.out.print(false);
@@ -127,6 +127,7 @@ public class RegistrationDbManager{
 		System.out.print(success);
 	}
 
+*/
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Utility Functions
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
