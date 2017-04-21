@@ -25,6 +25,12 @@
       font-size: 20px;
       color: #111;
   }
+  .row.login {
+  	margin-top: 300px;
+  	margin-bottom: 300px;
+  	background-color: #2d2d30;
+  	opacity: 0.9;
+  }
   .row.top {
   	margin-top: 150px;
   	margin-bottom: 70px;
@@ -39,9 +45,11 @@
   }
   .container {
       background-image: url("hogs.jpg");
+      background-repeat: no-repeat;
+      background-size: 100%;
       width: 100%;
       min-height: 100%;
-      background-color: #000;
+      background-color: #2d2d30;
   }
   .dropdown {
   	border: none;
@@ -59,8 +67,8 @@
   }
   .carousel-inner img {
       -webkit-filter: grayscale(90%);
-      filter: grayscale(90%); /* make all photos black and white */ 
-      width: 100%; /* Set width to 100% */
+      filter: grayscale(90%); 
+      width: 100%;
       margin: auto;
   }
   .carousel-caption h3 {
@@ -68,7 +76,7 @@
   }
   @media (max-width: 600px) {
     .carousel-caption {
-      display: none; /* Hide the carousel text when the screen is less than 600 pixels wide */
+      display: none;
     }
   }
   .bg-1 {
@@ -106,6 +114,10 @@
       background-color: #fff;
       color: #000;
   }
+  .modal-dialog.Db {
+  	width: 75%;
+	  	
+  }
   .modal-header, h4, .close {
       background-color: #333;
       color: #fff !important;
@@ -114,6 +126,12 @@
   }
   .modal-header, .modal-body {
       padding: 40px 50px;
+  }
+  .modal-body.Db {
+  	font-family: Courier New, monospace;
+  	font-size: 18px;
+  	color: #292929;
+  	width: 1000px;
   }
   .nav-tabs li a {
       color: #777;
@@ -177,6 +195,23 @@
   textarea {
       resize: none;
   }
+  input[type=submit] {
+  	background: #292929;
+  	width: 20%;
+  	color: white;
+  }
+  .loginForm {
+  	color: #f5f5f5;
+  	font-size: 20px;
+  	font-family: Tahoma, sans-serif;
+  	font-weight: 900;
+  }
+  #loginText {
+  	color: #000000;
+  }
+  #passText {
+  	color: #000000;
+  }
   </style>
   
   
@@ -205,8 +240,31 @@
 	  </div>
 	</nav>
 
+<?php if(true) { ?>
+	<!-- Container-->
+	<div id="database" class="container text-center">
+		<div class= "col-md-4">
+		</div>
+		<div class= "col-md-4">
+			<div class = "row login">
+				<br>
+				<form class="loginForm" method="post" action="enrollment.php">
+				  	Login ID<br>
+			  	  	<input type="text" name="logintext" id="loginText">
+				  	<br><br>
+			  	  	Password<br>
+			  	  	<input type="password" name="passtext" id="passText">
+				  	<br><br>
+			  		<input type="submit" class="btn btn-small" value="Submit">
+				 </form>
+				 <br>
+			</div>
+		</div>
+	</div>
 
+<?php } ?>
 
+<?php if(false) { ?>
 	<!-- Container-->
 	<div id="database" class="container text-center">
 	 <?php
@@ -262,16 +320,16 @@
 		<div class="modal-body">
 		  <form method="post" action="enrollment.php">
 		  	Student ID<br>
-	  	  	<input type="text" name="studentId" value="000111000">
+	  	  	<input type="text" name="studentId">
 		  	<br><br>
 	  	  	First name<br>
-	  	  	<input type="text" name="firstname" value="Pearson">
+	  	  	<input type="text" name="firstname">
 		  	<br><br>
 	  	  	Last name<br>
-	  	  	<input type="text" name="lastname" value="Wade">
+	  	  	<input type="text" name="lastname">
 	  		<br><br>
 	  		Major<br>
-	  	  	<input type="text" name="major" value="CE">
+	  	  	<input type="text" name="major">
 		  	<br><br><br>
 	  		<input type="submit" value="Submit">
 		  </form> 
@@ -285,7 +343,7 @@
 	  
 	  <!-- Modal -->
 	  <div class="modal fade" id="ViewStudents" role="dialog">
-	    <div class="modal-dialog">
+	    <div class="modal-dialog Db">
 	    
 	      <!-- Modal content-->
 	      <div class="modal-content">
@@ -293,7 +351,7 @@
 		  <button type="button" class="close" data-dismiss="modal">&times;</button>
 		  <h4 class="modal-title">View All Students</h4>
 		</div>
-		<div class="modal-body text-left">
+		<div class="modal-body Db text-left">
 		  <?php system('java -cp .:mysql-connector-java-5.1.40-bin.jar RegistrationDbManager D '); ?>
 		</div>
 		
@@ -314,14 +372,19 @@
 	  
 	</div>
 	    
-	  </div>
+	</div> <!-- End Container-->
+	  
+	  <?php } ?>
 	</div>  
 	    
 	  
 	</div>
 
 <div class="footer text-center">
-<p>Samuel Riester | Pearson Wade</p>
+<p>Samuel Riester | Pearson Wade
+   <br><br>Contact Us
+   <br>P : (479)-575-2905
+   <br>E : helpdesk@uark.edu</p>
 </div>
  
 
