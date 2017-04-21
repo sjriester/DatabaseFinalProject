@@ -42,8 +42,8 @@ public class RegistrationDbManager{
 //Functions for user menu options
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	public static void addStudent(String studentId, String fName, String lName, String major) {
-		insert("Student", "\"" + studentId + "\", \"" + fName + "\", \"" + lName + "\", \"" + major + "\"");
+	public static boolean addStudent(String studentId, String fName, String lName, String major) {
+		return insert("Student", "\"" + studentId + "\", \"" + fName + "\", \"" + lName + "\", \"" + major + "\"");
 	}
 
 	public static void addCourse(String deptCode, String courseNum, String title, String creditHours) {
@@ -175,12 +175,13 @@ public class RegistrationDbManager{
     }
 
     // Insert into any table, any values from data passed in as String parameters
-    public static void insert(String table, String values) {
+    public static boolean insert(String table, String values) {
         String query = "INSERT INTO " + table + " VALUES (" + values + ");" ;
         try {
             statement.executeUpdate(query);
         } catch (SQLException e) {
-            e.printStackTrace();
+            return false;
         }
+		return true;
     }
 }
