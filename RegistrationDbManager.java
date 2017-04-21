@@ -29,6 +29,8 @@ public class RegistrationDbManager{
 						  break;
 				case "E": viewDeptCourses();
 						  break;
+				case "F": logIn(args[1], args[2]);
+						  break;
 				case "Q": viewStudentCourses();
 						  break;
 				default:  break;
@@ -61,6 +63,15 @@ public class RegistrationDbManager{
 	}
 
 	public static void viewStudentCourses() {
+	}
+
+	public static void logIn(String id, String password) throws IOException, SQLException {
+		String query = "Select * FROM login WHERE id = \"" + id + "\" AND password = \"" + password + "\"";
+		statement.executeQuery(query);
+		ResultSet resultSet = statement.executeQuery("SELECT FOUND_ROWS();");
+		while(resultSet.next()){
+			System.out.print(resultSet.getInt("FOUND_ROWS()"));
+		}
 	}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -10,28 +10,32 @@ CREATE TABLE Code
 
 USE sjrieste;
 
+CREATE TABLE login(
+	id CHAR(25) NOT NULL PRIMARY KEY,
+	password CHAR(255) NOT NULL
+);
+
 CREATE TABLE Student(
-	studentId CHAR(9) PRIMARY KEY,
-	fName CHAR(25) NOT NULL,
-	lName CHAR(25) NOT NULL,
-	major CHAR(50) NOT NULL
+	StudentId CHAR(9) PRIMARY KEY,
+	FirstName CHAR(25) NOT NULL,
+	LastName CHAR(25) NOT NULL,
+	Major CHAR(50) NOT NULL
 );
 
 CREATE TABLE Course(
-	courseNum CHAR(4) PRIMARY KEY,
-	deptCode CHAR(4) NOT NULL,
-	title CHAR(100) NOT NULL,
-	creditHours INT
+	CourseNumber CHAR(4),
+	DepartmentCode CHAR(4) NOT NULL,
+	Title CHAR(100) NOT NULL,
+	CreditHours INT,
+	PRIMARY KEY(CourseNumber, DepartmentCode)
 );
 
 CREATE TABLE Enrollment(
-	studentId CHAR(9) NOT NULL,
-	courseNum CHAR(4) NOT NULL,
-	deptCode CHAR(4) NOT NULL,
-	// foreign keys not functional
-	FOREIGN KEY(studentId) REFERENCES Student(studentId) ON DELETE SET NULL,
-	FOREIGN KEY(courseNum) REFERENCES Course(courseNum) ON DELETE SET NULL,
-	FOREIGN KEY(deptCode) REFERENCES Course(deptCode) ON DELETE SET NULL
+	StudentId CHAR(9) NOT NULL,
+	CourseNumber CHAR(4) NOT NULL,
+	DepartmentCode CHAR(4) NOT NULL,
+	FOREIGN KEY(StudentId) REFERENCES Student(StudentId) ON DELETE CASCADE,
+	FOREIGN KEY(CourseNumber, DepartmentCode) REFERENCES Course(CourseNumber, DepartmentCode) ON DELETE CASCADE
 );
 
 
