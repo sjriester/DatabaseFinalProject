@@ -1,16 +1,7 @@
- <?php 
- 	if (isset($_POST['logintext'])) {
- 		$encrypt = openssl_encrypt($_POST['passtext'], "RC4", "samandpearsonfinalproject"); //Encrypt password attempt
- 		//Validate username and encrypted password
-		$valid = shell_exec('java -cp .:mysql-connector-java-5.1.40-bin.jar RegistrationDbManager G ' . $_POST['logintext'] . ' ' . $encrypt);
- 
-		if ($valid == "1") {
-			setcookie('loggedin', 1); //Log in
-			header("Location: enrollment.php"); //Navigate to main page
-		}
-		
-	} else {
-		setcookie('loggedin', null); //Keep logged out
+<?php	
+	//Check if we need to be here
+	if (!isset($_COOKIE["loggedin"])) {
+		header("Location: login.php");
 	}
 ?>
 
@@ -44,6 +35,13 @@
   	background-color: #2d2d30;
   	opacity: 0.9;
   }
+  .row.views {
+  	margin-top: 100px;
+  	margin-bottom: 100px;
+  	background-color: #2d2d30;
+  	opacity: 0.9;
+  
+  }
   .row.top {
   	margin-top: 150px;
   	margin-bottom: 70px;
@@ -63,6 +61,11 @@
       width: 100%;
       min-height: 100%;
       background-color: #2d2d30;
+  }
+  .container.views {
+      font-family: Courier New, monospace;
+      font-size: 18px;
+      color: #ffffff;
   }
   .dropdown {
   	border: none;
@@ -139,7 +142,7 @@
   }
   .nav-tabs li a {
       color: #777;
-  }
+  } 
   .navbar {
       font-family: Montserrat, sans-serif;
       margin-bottom: 0;
@@ -238,37 +241,27 @@
 	  </div>
 	</nav>
 
-	<!-- Container-->
-	<div id="database" class="container text-center">
-		<div class= "col-md-4">
-		</div>
-		<div class= "col-md-4">
-			<div class = "row login">
+	<!-- View Students Container-->
+	<div id="database" class="container views">
+		<div class ="col-md-8 col-md-offset-2">
+			<div class = "row views">
 				<br>
-				<form class="loginForm" method="post" action="login.php">
-				  	Login ID<br>
-			  	  	<input type="text" name="logintext" id="loginText">
-				  	<br><br>
-			  	  	Password<br>
-			  	  	<input type="password" name="passtext" id="passText">
-				  	<br>
-				  	<?php 
-				  		//Display to user if invalid attempt
-				  		if (isset($_POST['logintext'])) {
-			 				if ($valid == "0") {
-								echo '<br>INVALID LOGIN';
-							}
-						}
+				<div style="margin-left:100px">
+					<?php
+						$commandD = 'java -cp .:mysql-connector-java-5.1.40-bin.jar RegistrationDbManager D ';
+						$commandD = escapeshellcmd($commandD); //Remove dangerous characters
+						system($commandD);
 					?>
-					<br>
-			  		<input type="submit" class="btn btn-small" value="Submit">
-				 </form>
+				</div>
 				 <br>
-				 <a class="btn btn-small" href="admin.php">New User</a>
+				 <div style="text-align:center" >
+					 <a class="btn btn-small" href="enrollment.php">Back</a>
+				 </div>
+				 
 			</div>
 		</div>
 	</div>
-	</div> 
+	</div>  
 	</div>
 
 <div class="footer text-center">
@@ -277,6 +270,6 @@
    <br>P : (479)-575-2905
    <br>E : helpdesk@uark.edu</p>
 </div>
-
+ 
 </body>
 </html>

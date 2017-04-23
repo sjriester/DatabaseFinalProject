@@ -1,3 +1,24 @@
+ <?php 
+ 	//Check if we need to be here
+ 	if (!isset($_COOKIE["loggedin"])) {
+		header("Location: login.php");
+	}
+ 	
+ 	//Check if department code has been selected and navigate
+ 	if (isset($_POST['pickDepCode'])) {
+ 		$dep_value = $_POST['pickDepCode'];
+        	setcookie('dep', $dep_value);
+        	header("Location: depcourses.php");
+	}
+	
+	//Check if student Id has been selected and navigate
+	if (isset($_POST['pickStuId'])) {
+ 		$stu_value = $_POST['pickStuId'];
+        	setcookie('stu', $stu_value);
+        	header("Location: stucourses.php");
+	}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -65,15 +86,6 @@
   .person:hover {
       border-color: #f1f1f1;
   }
-  .carousel-inner img {
-      -webkit-filter: grayscale(90%);
-      filter: grayscale(90%); 
-      width: 100%;
-      margin: auto;
-  }
-  .carousel-caption h3 {
-      color: #fff !important;
-  }
   @media (max-width: 600px) {
     .carousel-caption {
       display: none;
@@ -135,12 +147,6 @@
   }
   .nav-tabs li a {
       color: #777;
-  }
-  #googleMap {
-      width: 100%;
-      height: 400px;
-      -webkit-filter: grayscale(100%);
-      filter: grayscale(100%);
   }  
   .navbar {
       font-family: Montserrat, sans-serif;
@@ -251,8 +257,9 @@
 	 <br>
 	  <div class="row top">
 	  
+	  <!--Menu Buttons-->
 	    <div class="col-sm-4">
-	      <button type="button" class="btn btn-large" data-toggle="modal" data-target="#AddStudent">Add Student</button> 
+	      <div class="btn btn-large" data-toggle="modal" data-target="#AddStudent">Add Student</div>
 	    </div>
 	    
 	    <div class="col-sm-4">
@@ -267,44 +274,93 @@
 	  <div class="row bottom">
 	   
 	    <div class="col-sm-4">
-	      <div class="btn btn-large" data-toggle="modal" data-target="#ViewStudents">View Students</div>
+	      <a class="btn btn-large" href="students.php">View Students</a>
 	    </div>
 	    
 	    <div class="col-sm-4">
-	      <div class="btn btn-large" data-toggle="modal" data-target="#ViewDepartmentCourses">View Department Courses</div>
+	      <div class="btn btn-large" data-toggle="modal" data-target="#PickDepartment">View Department Courses</div>
 	    </div>
 	    
 	    <div class="col-sm-4">
-	      <div class="btn btn-large" data-toggle="modal" data-target="#ViewStudentCourses">View Student Courses</div>
+	      <div class="btn btn-large" data-toggle="modal" data-target="#PickStudent">View Student Courses</div>
 	    </div>
 	    
 	    </div>
 	    <div class = "row error">
 	    	<div class="col-sm-2 col-md-offset-5">
-	    	<?php if(isset($_POST['firstname'])) {
+	    	
+	    	
+	    	<!--|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\-->
+	    	<!--|||||||||||||||||||||||| Checking for succesful database changes and notification to the user |||||||||||||||||||||||||||||||||||||||||||||||||||||||||\-->
+	    	<!--|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\-->
+	    	
+	    	<?php
+	    		if(isset($_POST['firstname'])) {
 		  		$validStudent = shell_exec('java -cp .:mysql-connector-java-5.1.40-bin.jar RegistrationDbManager A ' . $_POST['studentId'] . ' ' . $_POST['firstname'] . ' ' . $_POST['lastname'] . ' ' . $_POST['major']);
 		  		
-		  		if ($validStudent == "false") {  ?>
-		  		<div class="alert alert-warning">
-    					<strong>Invalid Input! <?php //echo $validStudent;?></strong> The student was not added.
-  				</div>
-		  		
-		  		<?php
+		  		if ($validStudent == "false") {
+		?>
+			  		<div class="alert alert-warning">
+	    					<strong>Invalid Input!</strong> The student was not added.
+	  				</div>
+		<?php
 		  		}
-		  		if($validStudent == "true") { ?>
-		  		<div class="alert alert-warning">
-    					<strong>The student was added.</strong>
-  				</div>
-		  		
-		  		
-		  		<?php	
+		  		if($validStudent == "true") {
+		?>
+			  		<div class="alert alert-warning">
+	    					<strong>The student was added.</strong>
+	  				</div>
+		<?php	
 		  		}
 		  	}
-		  	?>
+		  	
+		  	if(isset($_POST['title'])) {
+		  	
+		  		$title = escapeshellarg($_POST['title']);
+		  		$validCourse = shell_exec('java -cp .:mysql-connector-java-5.1.40-bin.jar RegistrationDbManager B ' . $_POST['cStudentId'] . ' ' . $_POST['cCourseNumber'] . ' ' . $title . ' ' . $_POST['creditHours']);
+		  		
+		  		if ($validCourse == "false") {
+		?>
+			  		<div class="alert alert-warning">
+	    					<strong>Invalid Input!</strong> The course was not added.
+	  				</div>
+		<?php
+		  		}
+		  		if($validCourse == "true") {
+		?>
+			  		<div class="alert alert-warning">
+	    					<strong>The course was added.</strong>
+	  				</div>
+		<?php	
+		  		}
+		  	}
+		  	
+		  	if(isset($_POST['aCourseNumber'])) {
+		  		$validApp = shell_exec('java -cp .:mysql-connector-java-5.1.40-bin.jar RegistrationDbManager C ' . $_POST['aStudentId'] . ' ' . $_POST['aDepCode'] . ' ' . $_POST['aCourseNumber']);
+		  		
+		  		if ($validApp == "false") {
+		?>
+		  		<div class="alert alert-warning">
+    					<strong>Invalid Input!</strong> The application was not added.
+  				</div>
+		  		
+		<?php
+		  		}
+		  		if($validApp == "true") {
+		?>
+		  		<div class="alert alert-warning">
+    					<strong>The application was added.</strong>
+  				</div>	
+		<?php	
+		  		}
+		  	}
+		?>
 		 </div>
 	  </div>
+	  
+	  <!--|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||\-->
 	    
-	  <!-- Modal -->
+	  <!-- Add Student Modal -->
 	  <div class="modal fade" id="AddStudent" role="dialog">
 	    <div class="modal-dialog">
 	    
@@ -338,7 +394,7 @@
 	    </div>
 	  </div> <!-- End Modal-->
 	  
-	  <!-- Modal -->
+	  <!-- Add Course Modal -->
 	  <div class="modal fade" id="AddCourse" role="dialog">
 	    <div class="modal-dialog">
 	    
@@ -346,7 +402,7 @@
 	      <div class="modal-content">
 		<div class="modal-header">
 		  <button type="button" class="close" data-dismiss="modal">&times;</button>
-		  <h4 class="modal-title">Add a Student</h4>
+		  <h4 class="modal-title">Add a Course</h4>
 		</div>
 		<div class="modal-body">
 		  <form method="post" action="enrollment.php">
@@ -372,7 +428,7 @@
 	    </div>
 	  </div> <!-- End Modal-->
 	  
-	  <!-- Modal -->
+	  <!-- Add Application Modal -->
 	  <div class="modal fade" id="AddApplication" role="dialog">
 	    <div class="modal-dialog">
 	    
@@ -380,19 +436,19 @@
 	      <div class="modal-content">
 		<div class="modal-header">
 		  <button type="button" class="close" data-dismiss="modal">&times;</button>
-		  <h4 class="modal-title">Add a Student</h4>
+		  <h4 class="modal-title">Add an Application</h4>
 		</div>
 		<div class="modal-body">
 		  <form method="post" action="enrollment.php">
 		  	Student ID<br>
-	  	  	<input type="text" name="appStudentId">
-		  	<br><br>
-	  	  	Course Number<br>
-	  	  	<input type="text" name="aCourseNumber">
+	  	  	<input type="text" name="aStudentId">
 		  	<br><br>
 	  	  	Department Code<br>
 	  	  	<input type="text" name="aDepCode">
 	  		<br><br>
+	  		Course Number<br>
+	  	  	<input type="text" name="aCourseNumber">
+		  	<br><br>
 		  	<br>
 	  		<input type="submit" value="Submit">
 		  </form>
@@ -403,19 +459,24 @@
 	    </div>
 	  </div> <!-- End Modal-->
 	  
-	  
-	  <!-- Modal -->
-	  <div class="modal fade" id="ViewStudents" role="dialog">
-	    <div class="modal-dialog Db">
+	  <!-- Department Selection Modal -->
+	  <div class="modal fade" id="PickDepartment" role="dialog">
+	    <div class="modal-dialog">
 	    
 	      <!-- Modal content-->
 	      <div class="modal-content">
 		<div class="modal-header">
 		  <button type="button" class="close" data-dismiss="modal">&times;</button>
-		  <h4 class="modal-title">View All Students</h4>
+		  <h4 class="modal-title">Select Department</h4>
 		</div>
-		<div class="modal-body Db text-left">
-		  <?php system('java -cp .:mysql-connector-java-5.1.40-bin.jar RegistrationDbManager D '); ?>
+		<div class="modal-body">
+		  <form method="post" action="enrollment.php">
+	  	  	Department Code<br>
+	  	  	<input type="text" name="pickDepCode">
+		  	<br><br>
+		  	<br>
+	  		<input type="submit" value="Submit">
+		  </form>
 		</div>
 		
 	      </div>
@@ -423,49 +484,30 @@
 	    </div>
 	  </div> <!-- End Modal-->
 	  
-	  <!-- Modal -->
-	  <div class="modal fade" id="ViewDepartmentCourses" role="dialog">
-	    <div class="modal-dialog Db">
+	  <!-- Student Selection Modal -->
+	  <div class="modal fade" id="PickStudent" role="dialog">
+	    <div class="modal-dialog">
 	    
 	      <!-- Modal content-->
 	      <div class="modal-content">
 		<div class="modal-header">
 		  <button type="button" class="close" data-dismiss="modal">&times;</button>
-		  <h4 class="modal-title">View Courses in Department</h4>
+		  <h4 class="modal-title">Select Student</h4>
 		</div>
-		<div class="modal-body Db text-left">
-		  <?php system('java -cp .:mysql-connector-java-5.1.40-bin.jar RegistrationDbManager E ');
-		  	echo 'testE'; ?>
+		<div class="modal-body">
+		  <form method="post" action="enrollment.php">
+	  	  	Student ID<br>
+	  	  	<input type="text" name="pickStuId">
+		  	<br><br>
+		  	<br>
+	  		<input type="submit" value="Submit">
+		  </form>
 		</div>
 		
 	      </div>
 	      
 	    </div>
 	  </div> <!-- End Modal-->
-	  
-	  <!-- Modal -->
-	  <div class="modal fade" id="ViewStudentCourses" role="dialog">
-	    <div class="modal-dialog Db">
-	    
-	      <!-- Modal content-->
-	      <div class="modal-content">
-		<div class="modal-header">
-		  <button type="button" class="close" data-dismiss="modal">&times;</button>
-		  <h4 class="modal-title">View Courses for Student</h4>
-		</div>
-		<div class="modal-body Db text-left">
-		  <?php system('java -cp .:mysql-connector-java-5.1.40-bin.jar RegistrationDbManager Q ');
-		  	echo 'testQ'; ?>
-		</div>
-		
-	      </div>
-	      
-	    </div>
-	  </div> <!-- End Modal-->
-	 
-	</div>
-	    
-	</div> <!-- End Container-->
 	  
 	</div>  
 	    
@@ -478,37 +520,6 @@
    <br>P : (479)-575-2905
    <br>E : helpdesk@uark.edu</p>
 </div>
-
-<script>
-$(document).ready(function(){
-  // Initialize Tooltip
-  $('[data-toggle="tooltip"]').tooltip(); 
-  
-  // Add smooth scrolling to all links in navbar + footer link
-  $(".navbar a, footer a[href='#myPage']").on('click', function(event) {
-
-    // Make sure this.hash has a value before overriding default behavior
-    if (this.hash !== "") {
-
-      // Prevent default anchor click behavior
-      event.preventDefault();
-
-      // Store hash
-      var hash = this.hash;
-
-      // Using jQuery's animate() method to add smooth page scroll
-      // The optional number (900) specifies the number of milliseconds it takes to scroll to the specified area
-      $('html, body').animate({
-        scrollTop: $(hash).offset().top
-      }, 900, function(){
-   
-        // Add hash (#) to URL when done scrolling (default click behavior)
-        window.location.hash = hash;
-      });
-    } // End if
-  });
-})
-</script>
 
 </body>
 </html>

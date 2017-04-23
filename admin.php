@@ -1,23 +1,26 @@
- <?php if (isset($_POST['logintext'])) {
-	$valid = shell_exec('java -cp .:mysql-connector-java-5.1.40-bin.jar RegistrationDbManager F ' . $_POST['logintext'] . ' ' . $_POST['passtext']);
- 		//echo $valid;
- 		if ($valid == "0") {
-		//echo '<br>INVALID LOGIN';
+ <?php 
+ 	//Check if both passwords match
+ 	if (isset($_POST['newuser']) && $_POST['pass1'] == $_POST['pass2']) {
+ 
+ 		//Password encryption
+	 	$encrypt = openssl_encrypt($_POST['pass1'], "RC4", "samandpearsonfinalproject");
+		$free = shell_exec('java -cp .:mysql-connector-java-5.1.40-bin.jar RegistrationDbManager H ' . $_POST['newuser'] . ' ' . $encrypt);
+		
+		//Check if command worked succesfully
+		if ($free == "true") {
+			$added = "The user was added.";
+		} else {
+			$added = "The user was not added.";
 		}
-		elseif ($valid == "1") {
-			header("Location: enrollment.php");
-		}
+		
+	} else {
+		$added = "";
 	}
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-
-
 
   <title>Student EC</title>
   <meta charset="utf-8">
@@ -78,15 +81,6 @@
   }
   .person:hover {
       border-color: #f1f1f1;
-  }
-  .carousel-inner img {
-      -webkit-filter: grayscale(90%);
-      filter: grayscale(90%); 
-      width: 100%;
-      margin: auto;
-  }
-  .carousel-caption h3 {
-      color: #fff !important;
   }
   @media (max-width: 600px) {
     .carousel-caption {
@@ -149,12 +143,6 @@
   }
   .nav-tabs li a {
       color: #777;
-  }
-  #googleMap {
-      width: 100%;
-      height: 400px;
-      -webkit-filter: grayscale(100%);
-      filter: grayscale(100%);
   }  
   .navbar {
       font-family: Montserrat, sans-serif;
@@ -254,29 +242,23 @@
 	  </div>
 	</nav>
 
-	<!-- Container-->
+	<!-- New User Form Container-->
 	<div id="database" class="container text-center">
 		<div class= "col-md-4">
 		</div>
 		<div class= "col-md-4">
 			<div class = "row login">
 				<br>
-				<form class="loginForm" method="post" action="login.php">
+				<form class="loginForm" method="post" action="admin.php">
 				  	New User<br>
-			  	  	<input type="text" name="logintext" id="loginText">
+			  	  	<input type="text" name="newuser" id="loginText">
 				  	<br><br>
 			  	  	Password<br>
-			  	  	<input type="password" name="passtext" id="passText">
+			  	  	<input type="password" name="pass1" id="passText">
 			  	  	<br><br>
 			  	  	Repeat Password<br>
-			  	  	<input type="password" name="passtext" id="passText">
-				  	<br><?php if (isset($_POST['logintext'])) {
-			 			if ($valid == "0") {
-							echo '<br>INVALID LOGIN';
-						}
-					}
-					?>
-					<br>
+			  	  	<input type="password" name="pass2" id="passText">
+				  	<br><?php echo $added; //Display if user was added?><br>
 			  		<input type="submit" class="btn btn-small" value="Submit">
 				 </form>
 				 <br>
@@ -284,10 +266,7 @@
 			</div>
 		</div>
 	</div>
-
-	</div>  
-	    
-	  
+	</div>
 	</div>
 
 <div class="footer text-center">
@@ -296,39 +275,6 @@
    <br>P : (479)-575-2905
    <br>E : helpdesk@uark.edu</p>
 </div>
- 
-
-
-<script>
-$(document).ready(function(){
-  // Initialize Tooltip
-  $('[data-toggle="tooltip"]').tooltip(); 
-  
-  // Add smooth scrolling to all links in navbar + footer link
-  $(".navbar a, footer a[href='#myPage']").on('click', function(event) {
-
-    // Make sure this.hash has a value before overriding default behavior
-    if (this.hash !== "") {
-
-      // Prevent default anchor click behavior
-      event.preventDefault();
-
-      // Store hash
-      var hash = this.hash;
-
-      // Using jQuery's animate() method to add smooth page scroll
-      // The optional number (900) specifies the number of milliseconds it takes to scroll to the specified area
-      $('html, body').animate({
-        scrollTop: $(hash).offset().top
-      }, 900, function(){
-   
-        // Add hash (#) to URL when done scrolling (default click behavior)
-        window.location.hash = hash;
-      });
-    } // End if
-  });
-})
-</script>
 
 </body>
 </html>
