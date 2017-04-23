@@ -296,7 +296,8 @@
 	    	
 	    	<?php
 	    		if(isset($_POST['firstname'])) {
-		  		$validStudent = shell_exec('java -cp .:mysql-connector-java-5.1.40-bin.jar RegistrationDbManager A ' . $_POST['studentId'] . ' ' . $_POST['firstname'] . ' ' . $_POST['lastname'] . ' ' . $_POST['major']);
+	    			$major = escapeshellarg($_POST['major']); //Include white space in command line argument
+		  		$validStudent = shell_exec('java -cp .:mysql-connector-java-5.1.40-bin.jar RegistrationDbManager A ' . $_POST['studentId'] . ' ' . $_POST['firstname'] . ' ' . $_POST['lastname'] . ' ' . $major);
 		  		
 		  		if ($validStudent == "false") {
 		?>
@@ -316,7 +317,7 @@
 		  	
 		  	if(isset($_POST['title'])) {
 		  	
-		  		$title = escapeshellarg($_POST['title']);
+		  		$title = escapeshellarg($_POST['title']); //Include white space in command line argument
 		  		$validCourse = shell_exec('java -cp .:mysql-connector-java-5.1.40-bin.jar RegistrationDbManager B ' . $_POST['cStudentId'] . ' ' . $_POST['cCourseNumber'] . ' ' . $title . ' ' . $_POST['creditHours']);
 		  		
 		  		if ($validCourse == "false") {
