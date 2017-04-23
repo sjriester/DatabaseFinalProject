@@ -99,7 +99,7 @@ public class RegistrationDbManager{
 
 
 	public static void viewStudentCourses(String studentId) {
-		String query = "Select * FROM Enrollment WHERE StudentId = \"" + studentId + "\";";
+		String query = "Select Course.Title, Course.CourseNumber, Course.DepartmentCode, Course.CreditHours FROM Course, Enrollment WHERE Enrollment.StudentId = \"" + studentId + "\" AND Enrollment.CourseNumber = Course.CourseNumber AND Enrollment.DepartmentCode = Course.DepartmentCode;";
 		query(query);
 	}
 
